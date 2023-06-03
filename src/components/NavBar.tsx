@@ -1,5 +1,6 @@
 import { HStack, Image } from "@chakra-ui/react";
 import ColorModeSwitch from "./ColorModeSwitch";
+import GameGrid from "./GameGrid";
 
 function NavBar() {
   return (
