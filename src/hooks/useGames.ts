@@ -26,17 +26,21 @@ const useGames = () => {
 
   console.log(games);
 
-  const controller = new AbortController();
+  
 
   useEffect(() => {
+    const controller = new AbortController();
     api
-      .get<FetchGamesResponse>("/games")
+      .get<FetchGamesResponse>("/games", { signal: controller.signal })
       .then((res) => setGames(res.data.results))
       .catch((error) => {
+        if (error instanceof CanceledError) return;
         setError(error.message);
       });
 
-    return () => controller.abort();
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return { games, error };
