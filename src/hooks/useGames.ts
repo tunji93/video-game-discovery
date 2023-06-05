@@ -12,6 +12,7 @@ export type Game = {
   name: string;
   background_image: string;
   parent_platforms: { platform: Platform }[];
+  metacritic: number;
 };
 
 type FetchGamesResponse = {
@@ -23,7 +24,7 @@ const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
 
-//   console.log(games);
+  console.log(games);
 
   const controller = new AbortController();
 
