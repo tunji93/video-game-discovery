@@ -11,19 +11,19 @@ import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 
 type Props = {
-  gamesQuery: GamesQuery  
+  gamesQuery: GamesQuery;
 };
 
-function GameGrid({gamesQuery }: Props) {
+function GameGrid({ gamesQuery }: Props) {
   const { error, data: games, isLoading } = useGames(gamesQuery);
   const skeletons = [1, 2, 3, 4, 5, 6];
   return (
     <>
       {error && <p>{error}</p>}
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         padding="10px"
-        spacing={3}
+        spacing={6}
       >
         {isLoading &&
           skeletons.map((skeleton) => (

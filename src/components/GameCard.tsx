@@ -13,8 +13,7 @@ function GameCard({ game }: Props) {
     <Card>
       <Image src={buildCroppedImageUrl(game.background_image)} />
       <CardBody>
-        <Heading fontSize={"2xl"}>{game.name}</Heading>
-        <HStack justifyContent={'space-between'}>
+        <HStack justifyContent={"space-between"} marginBottom={3}>
           <PlatformsList
             platforms={game.parent_platforms.map(
               (platform) => platform.platform
@@ -22,6 +21,7 @@ function GameCard({ game }: Props) {
           />
           <MetaCritic score={game.metacritic} />
         </HStack>
+        <Heading fontSize={"2xl"}>{game.name}</Heading>
       </CardBody>
     </Card>
   );
