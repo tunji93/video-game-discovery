@@ -13,12 +13,15 @@ export type GamesQuery = {
   genre: Genre | null;
   platform: Platform | null;
   order: SortOrder | null;
+  searchText: string;
 };
 
 function App() {
   const [gamesQuery, setGamesQuery] = useState<GamesQuery>({} as GamesQuery);
-
-  const handleSelectOrder = (order: SortOrder| null) => {
+  const handleSelectSearchText = (searchText:string) => {
+    setGamesQuery({ ...gamesQuery, searchText });
+  };
+  const handleSelectOrder = (order: SortOrder | null) => {
     setGamesQuery({ ...gamesQuery, order });
   };
 
@@ -40,7 +43,7 @@ function App() {
       }}
     >
       <GridItem gridArea={"nav"}>
-        <NavBar />
+        <NavBar onSearch={handleSelectSearchText} />
       </GridItem>
       <Show above="lg">
         <GridItem gridArea={"aside"} paddingX={5}>
@@ -56,7 +59,10 @@ function App() {
             selectedPlatform={gamesQuery.platform}
             onSelectPlatform={handleSelectPlatform}
           />
-          <SortSelector onSelectSortOrder={handleSelectOrder} selectedOrder={gamesQuery.order} />
+          <SortSelector
+            onSelectSortOrder={handleSelectOrder}
+            selectedOrder={gamesQuery.order}
+          />
         </HStack>
 
         <GameGrid gamesQuery={gamesQuery} />
