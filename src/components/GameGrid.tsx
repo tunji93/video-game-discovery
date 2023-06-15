@@ -1,11 +1,6 @@
-import { SimpleGrid, Skeleton } from "@chakra-ui/react";
-import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { SimpleGrid } from "@chakra-ui/react";
 import { GamesQuery } from "../App";
 import useGames from "../hooks/useGames";
-import { Genre } from "../hooks/useGenres";
-import { Platform } from "../hooks/usePlatforms";
-import api from "../services/api";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GameCardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
@@ -19,7 +14,7 @@ function GameGrid({ gamesQuery }: Props) {
   const skeletons = [1, 2, 3, 4, 5, 6];
   return (
     <>
-      {error && <p>{error}</p>}
+      {error && <p>{error.message}</p>}
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         padding="10px"
@@ -31,7 +26,7 @@ function GameGrid({ gamesQuery }: Props) {
               <GameCardSkeleton />
             </GameCardContainer>
           ))}
-        {games.map((game) => (
+        {games?.results.map((game) => (
           <GameCardContainer key={game.id}>
             <GameCard game={game} />
           </GameCardContainer>
