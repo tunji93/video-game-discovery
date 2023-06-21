@@ -7,11 +7,11 @@ export type SortOrder = {
   label: string;
 };
 type Props = {
-  onSelectSortOrder: (order: SortOrder) => void;
-  selectedOrder: SortOrder | null;
+  onSelectSortOrder: (selectedOrderValue: string) => void;
+  selectedOrderValue?: string;
 };
 
-function SortSelector({ onSelectSortOrder, selectedOrder }: Props) {
+function SortSelector({ onSelectSortOrder, selectedOrderValue }: Props) {
   const sortOrders: SortOrder[] = [
     { value: "", label: "Relevance" },
     { value: "-added", label: "Date added" },
@@ -20,6 +20,8 @@ function SortSelector({ onSelectSortOrder, selectedOrder }: Props) {
     { value: "-metacritic", label: "Popularity" },
     { value: "-rating", label: "Average rating" },
   ];
+
+  const selectedOrder = sortOrders.find(order=> order.value === selectedOrderValue)
 
   return (
     <Menu>
@@ -30,7 +32,7 @@ function SortSelector({ onSelectSortOrder, selectedOrder }: Props) {
       <MenuList>
         {sortOrders.map((sortOrder) => (
           <MenuItem
-            onClick={() => onSelectSortOrder(sortOrder)}
+            onClick={() => onSelectSortOrder(sortOrder.value)}
             key={sortOrder.value}
             value={sortOrder.value}
           >

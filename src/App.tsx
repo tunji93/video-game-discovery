@@ -7,14 +7,14 @@ import GameHeading from "./components/GameHeading";
 import GenreList from "./components/GenreList";
 import NavBar from "./components/NavBar";
 import PlatformSelector from "./components/PlatformSelector";
-import SortSelector, { SortOrder } from "./components/SortSelector";
+import SortSelector from "./components/SortSelector";
 import { Genre } from "./hooks/useGenres";
 import { Platform } from "./hooks/usePlatforms";
 
 export type GamesQuery = {
-  genre: Genre | null;
-  platform: Platform | null;
-  order: SortOrder | null;
+  genreId?: number;
+  platformId?: number;
+  order: string;
   searchText: string;
 };
 
@@ -23,15 +23,15 @@ function App() {
   const handleSelectSearchText = (searchText: string) => {
     setGamesQuery({ ...gamesQuery, searchText });
   };
-  const handleSelectOrder = (order: SortOrder | null) => {
+  const handleSelectOrder = (order: string) => {
     setGamesQuery({ ...gamesQuery, order });
   };
 
-  const handleSelectGenre = (genre: Genre | null) => {
-    setGamesQuery({ ...gamesQuery, genre });
+  const handleSelectGenre = (genreId: number) => {
+    setGamesQuery({ ...gamesQuery, genreId });
   };
-  const handleSelectPlatform = (platform: Platform | null) => {
-    setGamesQuery({ ...gamesQuery, platform });
+  const handleSelectPlatform = (platformId: number) => {
+    setGamesQuery({ ...gamesQuery, platformId });
   };
   return (
     <Grid
@@ -51,7 +51,7 @@ function App() {
         <GridItem gridArea={"aside"} paddingX={5}>
           <GenreList
             onSelectGenre={handleSelectGenre}
-            selectedGenre={gamesQuery?.genre}
+            selectedGenreId={gamesQuery.genreId}
           />
         </GridItem>
       </Show>
@@ -60,12 +60,12 @@ function App() {
           <GameHeading gamesQuery={gamesQuery} />
           <HStack spacing={5} marginBottom={5}>
             <PlatformSelector
-              selectedPlatform={gamesQuery.platform}
+              selectedPlatformId={gamesQuery?.platformId}
               onSelectPlatform={handleSelectPlatform}
             />
             <SortSelector
               onSelectSortOrder={handleSelectOrder}
-              selectedOrder={gamesQuery.order}
+              selectedOrderValue={gamesQuery?.order}
             />
           </HStack>
         </Box>
