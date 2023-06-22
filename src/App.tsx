@@ -11,28 +11,7 @@ import SortSelector from "./components/SortSelector";
 import { Genre } from "./hooks/useGenres";
 import { Platform } from "./hooks/usePlatforms";
 
-export type GamesQuery = {
-  genreId?: number;
-  platformId?: number;
-  order: string;
-  searchText: string;
-};
-
 function App() {
-  const [gamesQuery, setGamesQuery] = useState<GamesQuery>({} as GamesQuery);
-  const handleSelectSearchText = (searchText: string) => {
-    setGamesQuery({ ...gamesQuery, searchText });
-  };
-  const handleSelectOrder = (order: string) => {
-    setGamesQuery({ ...gamesQuery, order });
-  };
-
-  const handleSelectGenre = (genreId: number) => {
-    setGamesQuery({ ...gamesQuery, genreId });
-  };
-  const handleSelectPlatform = (platformId: number) => {
-    setGamesQuery({ ...gamesQuery, platformId });
-  };
   return (
     <Grid
       templateAreas={{
@@ -45,32 +24,23 @@ function App() {
       }}
     >
       <GridItem gridArea={"nav"}>
-        <NavBar onSearch={handleSelectSearchText} />
+        <NavBar />
       </GridItem>
       <Show above="lg">
         <GridItem gridArea={"aside"} paddingX={5}>
-          <GenreList
-            onSelectGenre={handleSelectGenre}
-            selectedGenreId={gamesQuery.genreId}
-          />
+          <GenreList />
         </GridItem>
       </Show>
       <GridItem gridArea={"main"}>
         <Box paddingLeft={2}>
-          <GameHeading gamesQuery={gamesQuery} />
+          <GameHeading />
           <HStack spacing={5} marginBottom={5}>
-            <PlatformSelector
-              selectedPlatformId={gamesQuery?.platformId}
-              onSelectPlatform={handleSelectPlatform}
-            />
-            <SortSelector
-              onSelectSortOrder={handleSelectOrder}
-              selectedOrderValue={gamesQuery?.order}
-            />
+            <PlatformSelector />
+            <SortSelector />
           </HStack>
         </Box>
 
-        <GameGrid gamesQuery={gamesQuery} />
+        <GameGrid />
       </GridItem>
     </Grid>
   );
