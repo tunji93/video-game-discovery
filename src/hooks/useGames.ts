@@ -2,6 +2,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import ApiClient from "../services/api";
 import { FetchData } from "../services/api";
 import useGameQueryStore from "../store";
+import { Genre } from "./useGenres";
 import { Platform } from "./usePlatforms";
 
 export type Game = {
@@ -10,7 +11,9 @@ export type Game = {
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
+  publishers: { id: number; name: string }[];
   top_rating: number;
+  genres: Genre[];
   slug: string;
   description_raw: string;
 };
