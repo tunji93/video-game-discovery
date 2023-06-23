@@ -11,10 +11,12 @@ export type Game = {
   parent_platforms: { platform: Platform }[];
   metacritic: number;
   top_rating: number;
+  slug: string;
+  description_raw: string;
 };
 const apiClient = new ApiClient<Game>("/games");
-const useGames = () =>
-  {const gamesQuery = useGameQueryStore(s=>s.gameQuery)
+const useGames = () => {
+  const gamesQuery = useGameQueryStore((s) => s.gameQuery);
   return useInfiniteQuery<FetchData<Game>, Error>({
     queryKey: ["games", gamesQuery],
     queryFn: ({ pageParam = 1 }) =>
@@ -32,6 +34,7 @@ const useGames = () =>
       return lastPage.next ? allPages.length + 1 : undefined;
     },
     staleTime: 24 * 60 * 60 * 1000,
-  })};
+  });
+};
 
 export default useGames;
